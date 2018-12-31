@@ -45,6 +45,15 @@ input.addEventListener('input', () => {
     update();
   });
 });
+input.addEventListener('keydown', e => {
+  if (e.code === 'Tab') {
+    e.preventDefault();
+    showPrompt();
+  } else if (e.keyCode >= 65 && e.keyCode <= 90) {
+    // input 长度限制
+    input.value.length >= 2 && e.preventDefault();
+  }
+});
 promptBtn.addEventListener('click', () => {
   showPrompt();
 });
