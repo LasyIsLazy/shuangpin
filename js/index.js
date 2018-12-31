@@ -2,7 +2,10 @@ const text = document.getElementById('text');
 const input = document.getElementById('input');
 const prompt = document.getElementById('prompt');
 const promptBtn = document.getElementById('promptBtn');
-const length = data.length;
+const area = document.getElementById('area');
+const nextBtn = document.getElementById('nextBtn');
+let data; // 要练习的声母、韵母
+let plan; // 练习方案
 let currentData;
 let currentInitail; // 声母
 let currentFinalIndex;
@@ -12,18 +15,41 @@ let shuangpinInitail; // 双拼声母
 let shuangpinFinal; // 双拼韵母
 let shuangpin; // 双拼
 function next() {
-  currentData = data[Math.floor(Math.random() * length)];
+  clear();
+  if (!plan || plan === '0') {
+    data = ALL_PINYIN; // 默认全部拼音
+  } else {
+    const keys = Array.from(new Set(plan.split('')));
+    data = ALL_PINYIN.filter(py => {
+      // 过滤声母不在 keys 中的
+      const initial = XIAOHE[py.initial] ? XIAOHE[py.initial] : py.initial;
+      return keys.findIndex(ele => ele === initial) !== -1;
+    })
+      .map(py => {
+        // 过滤韵母不在 keys 中的
+        const finals = py.finals.filter(ele => {
+          const final = XIAOHE[ele] ? XIAOHE[ele] : ele;
+          return keys.findIndex(key => key === final) !== -1;
+        });
+        return {
+          ...py,
+          finals
+        };
+      })
+      .filter(ele => ele.finals.length > 0); // 过滤没有韵母的
+  }
+  currentData = data[Math.floor(Math.random() * data.length)];
   currentInitail = currentData.initial;
   currentFinalIndex = Math.floor(Math.random() * currentData.finals.length);
   currentFinal = currentData.finals[currentFinalIndex];
   currentPinyin = currentData.initial + currentFinal;
-  shuangpinInitail = xiaohe[currentInitail]
-    ? xiaohe[currentInitail]
+  shuangpinInitail = XIAOHE[currentInitail]
+    ? XIAOHE[currentInitail]
     : currentInitail;
-  shuangpinFinal = xiaohe[currentFinal] ? xiaohe[currentFinal] : currentFinal;
+  shuangpinFinal = XIAOHE[currentFinal] ? XIAOHE[currentFinal] : currentFinal;
   shuangpin = shuangpinInitail + shuangpinFinal;
 }
-function update() {
+function render() {
   text.innerHTML = currentPinyin;
 }
 function clear() {
@@ -37,12 +63,11 @@ function showPrompt() {
   prompt.innerHTML = shuangpin;
 }
 next();
-update();
+render();
 input.addEventListener('input', () => {
   validate(() => {
-    clear();
     next();
-    update();
+    render();
   });
 });
 input.addEventListener('keydown', e => {
@@ -56,4 +81,13 @@ input.addEventListener('keydown', e => {
 });
 promptBtn.addEventListener('click', () => {
   showPrompt();
+});
+area.addEventListener('change', () => {
+  plan = area.value;
+  next();
+  render();
+});
+nextBtn.addEventListener('click', () => {
+  next();
+  render();
 });

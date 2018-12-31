@@ -1,7 +1,7 @@
 /**
  * 小鹤双拼
  */
-const xiaohe = {
+const XIAOHE = {
   //   声母
   ch: 'i',
   sh: 'u',

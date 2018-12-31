@@ -1,4 +1,4 @@
-const data = [
+const ALL_PINYIN = [
   {
     initial: 'b',
     finals: [
