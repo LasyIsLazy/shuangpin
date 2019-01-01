@@ -1,0 +1,37 @@
+.inputContainer {
+  position: absolute;
+  min-width: 850px;
+  top: 100px;
+  right: 50%;
+  transform: translateX(50%);
+  text-align: center;
+}
+.keyboard {
+  margin-top: 20px;
+}
+.keyboard-row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+.keyboard-key {
+  border: 1px solid black;
+  width: 60px;
+  height: 60px;
+}
+.keyboard-key .key {
+  font-weight: 700;
+  font-size: 20px;
+  width: 25px;
+}
+.keyboard-key .initial {
+  width: 30px;
+  color: brown;
+}
+.keyboard-key .final {
+    height: 30px;
+    line-height: 15px;
+}
+.flex {
+    display: flex;
+}

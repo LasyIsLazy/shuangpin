@@ -14,6 +14,9 @@ let currentPinyin; // 拼音
 let shuangpinInitail; // 双拼声母
 let shuangpinFinal; // 双拼韵母
 let shuangpin; // 双拼
+/**
+ * 下一个
+ */
 function next() {
   clear();
   if (!plan || plan === '0') {
@@ -91,3 +94,21 @@ nextBtn.addEventListener('click', () => {
   next();
   render();
 });
+for (const key in XIAOHE_KEY) {
+  if (XIAOHE_KEY.hasOwnProperty(key)) {
+    const element = XIAOHE_KEY[key];
+    const { initials, finals } = element;
+    let initialStr = '';
+    for (const val of initials) {
+      initialStr += val + '<br/>';
+    }
+    let finalStr = '';
+    for (const val of finals) {
+      finalStr += val + '<br/>';
+    }
+    document.getElementById(
+      `initial_${key.toUpperCase()}`
+    ).innerHTML = initialStr;
+    document.getElementById(`final_${key.toUpperCase()}`).innerHTML = finalStr;
+  }
+}
