@@ -58,12 +58,34 @@ function render() {
 function clear() {
   input.value = '';
   prompt.innerHTML = '';
+  document.querySelectorAll('.keyboard-key').forEach(node => {
+    node.style.backgroundColor = '';
+  });
+  document.querySelectorAll('.key').forEach(node => {
+    node.style.color = '';
+  });
+  document.querySelectorAll('.final').forEach(node => {
+    node.style.color = '';
+  });
 }
 function validate(callback) {
   input.value === shuangpin && callback && callback();
 }
 function showPrompt() {
   prompt.innerHTML = shuangpin;
+  const initialNode = document.getElementById(
+    `key_${shuangpinInitail.toUpperCase()}`
+  );
+  initialNode.style.color = 'red';
+  const finalNode = document.getElementById(
+    `final_${shuangpinFinal.toUpperCase()}`
+  );
+  finalNode.style.color = 'red';
+  document.querySelectorAll('.keyboard-key').forEach(node => {
+    if (node.contains(initialNode) || node.contains(finalNode)) {
+      node.style.backgroundColor = 'lightgrey';
+    }
+  });
 }
 next();
 render();

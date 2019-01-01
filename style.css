@@ -6,6 +6,10 @@
   transform: translateX(50%);
   text-align: center;
 }
+.prompt {
+    width: 20px;
+    display: inline-block;
+}
 .keyboard {
   margin-top: 20px;
 }
