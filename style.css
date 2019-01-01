@@ -1,17 +1,22 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
 .inputContainer {
   position: absolute;
   min-width: 850px;
   top: 100px;
-  right: 50%;
-  transform: translateX(50%);
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
 }
 .prompt {
-    width: 20px;
-    display: inline-block;
+  width: 20px;
+  display: inline-block;
 }
 .keyboard {
-  margin-top: 20px;
+  margin-top: 200px;
 }
 .keyboard-row {
   display: flex;
@@ -33,9 +38,9 @@
   color: brown;
 }
 .keyboard-key .final {
-    height: 30px;
-    line-height: 15px;
+  height: 30px;
+  line-height: 15px;
 }
 .flex {
-    display: flex;
+  display: flex;
 }
