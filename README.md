@@ -1,21 +1,24 @@
 # shuang-pin
 
-> A ShuangPin practice website.
+> 练习双拼的网站
+
+网站地址：[https://shuangpin.lasy.site/](https://shuangpin.lasy.site/)
 
 ## Build Setup
 
 ``` bash
-# install dependencies
+# 安装依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 启动本地开发服务器 localhost:8080
 npm run dev
 
-# build for production with minification
+# 构建生产环境代码
 npm run build
 
-# build for production and view the bundle analyzer report
+# 构建生产环境代码并查看报告
 npm run build --report
-```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+# 部署
+npm run deploy
+```
