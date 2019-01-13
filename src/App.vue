@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <label for="plan">双拼方案</label>
     <el-select v-model="plan" name="plan">
       <el-option
@@ -17,12 +17,17 @@
         </el-col>
         <el-col :span="12" v-show="isPromptVisible">
           <label>双拼</label>
-          <span>{{ prompt }}</span>
+          <span class="prompt">{{ prompt }}</span>
         </el-col>
       </el-row>
       <el-row :gutter="10">
         <el-col :span="20">
-          <el-input v-model="input" name="input" @input="handleInput" @keydown.tab.prevent.native="handleTab"></el-input>
+          <el-input
+            v-model="input"
+            name="input"
+            @input="handleInput"
+            @keydown.tab.prevent.native="handleTab"
+          ></el-input>
         </el-col>
         <el-col :span="4">
           <el-button type="primary" @click="next">下一个</el-button>
@@ -30,11 +35,19 @@
       </el-row>
     </div>
     <p>说明：输入正确自动下一个，按Tab键提示</p>
+    <shuangpin-keys
+      :plan="plan"
+      :initial="initial"
+      :final="final"
+      :shuangpin-initial="shuangpinInitial"
+      :shuangpin-final="shuangpinFinal"
+      :prompt="isPromptVisible"
+    ></shuangpin-keys>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import ShuangpinKeys from './components/ShuangpinKeys'
 import { plans } from './commons/config'
 import ALL_PINYIN from './commons/pinyin'
 import SHUANGPIN from './commons/shuangpin'
@@ -42,7 +55,7 @@ import SHUANGPIN from './commons/shuangpin'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ShuangpinKeys
   },
   data () {
     return {
@@ -51,15 +64,15 @@ export default {
       input: '',
       initial: '',
       final: '',
-      shuangpin_initial: '',
-      shuangpin_final: '',
+      shuangpinInitial: '',
+      shuangpinFinal: '',
       prompt: '', // 提示
       isPromptVisible: false
     }
   },
   computed: {
     shuangpin () {
-      return this.shuangpin_initial + this.shuangpin_final
+      return this.shuangpinInitial + this.shuangpinFinal
     },
     pinyin () {
       return this.initial + this.final
@@ -73,8 +86,8 @@ export default {
       this.initial = initial
       this.final = final
       const shuangpin = SHUANGPIN[this.plan]
-      this.shuangpin_initial = shuangpin[initial] ? shuangpin[initial] : initial
-      this.shuangpin_final = shuangpin[final] ? shuangpin[final] : final
+      this.shuangpinInitial = shuangpin[initial] ? shuangpin[initial] : initial
+      this.shuangpinFinal = shuangpin[final] ? shuangpin[final] : final
     },
     handleInput () {
       this.validate().then(() => {
@@ -97,7 +110,7 @@ export default {
     },
     showPrompt () {
       this.isPromptVisible = true
-      this.prompt = this.shuangpin_initial + this.shuangpin_final
+      this.prompt = this.shuangpinInitial + this.shuangpinFinal
     }
   },
   beforeMount () {
@@ -108,11 +121,11 @@ export default {
 </script>
 
 <style>
-#app {
-
-}
 .input-container {
   width: 500px;
   margin: 50px auto;
+}
+.prompt {
+  color: green;
 }
 </style>
